@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Keyboard, Platform, View } from 'react-native';
+import { Keyboard, Platform, View, ViewPropTypes } from 'react-native';
 
 class HideWithKeyboard extends Component {
   constructor(props) {
@@ -31,25 +31,27 @@ class HideWithKeyboard extends Component {
   keyboardDidShow() {
     this.setState({
       keyboardUp: true,
-    });
+    })
   }
 
   keyboardDidHide() {
     this.setState({
       keyboardUp: false,
-    });
+    })
   }
 
   render() {
     if (this.state.keyboardUp) {
-      return (<View />);
+      return (
+        <View />
+      )
     }
 
     return (
-      <View>
+      <View style={this.props.style}>
         {this.props.children}
       </View>
-    );
+    )
   }
 }
 
@@ -58,19 +60,22 @@ HideWithKeyboard.propTypes = {
     PropTypes.array,
     PropTypes.object,
   ]),
-};
+  style: ViewPropTypes.style
+}
 
 class ShowWithKeyboard extends HideWithKeyboard {
   render() {
     if (!this.state.keyboardUp) {
-      return (<View />);
+      return (
+        <View />
+      )
     }
 
     return (
-      <View>
-        {this.props.children}
+      <View style={this.props.style}>
+        { this.props.children}
       </View>
-    );
+    )
   }
 }
 export { HideWithKeyboard, ShowWithKeyboard };
